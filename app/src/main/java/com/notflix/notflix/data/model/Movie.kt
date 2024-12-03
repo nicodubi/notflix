@@ -1,4 +1,4 @@
-package com.notflix.notflix.data
+package com.notflix.notflix.data.model
 
 /**
  * Created by Nicolas Dubiansky on 27/11/2024.

@@ -9,6 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.foundation.lazy.items
 
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.notflix.notflix.data.repository.MoviesRepositoryImpl
+import com.notflix.notflix.data.source.local.MoviesLocalDatabase
+import com.notflix.notflix.data.source.network.MoviesRemoteDataSourceAPI
 import com.notflix.notflix.domain.usecase.GetMoviesUseCase
 import com.notflix.notflix.presentation.viewmodel.MoviesViewModel
 import com.notflix.notflix.presentation.viewmodel.MoviesViewModelFactory
@@ -20,9 +23,22 @@ import com.notflix.notflix.presentation.viewmodel.MoviesViewModelFactory
 @Composable
 fun MoviesHomeScreen(
     modifier: Modifier = Modifier,
-    moviesViewModel: MoviesViewModel = viewModel(factory = MoviesViewModelFactory(GetMoviesUseCase()))
+    moviesViewModel: MoviesViewModel = viewModel(
+        factory = MoviesViewModelFactory(
+            createGetMoviesUseCase()
+        )
+    )
 ) {
     MoviesList(movies = moviesViewModel.movies)
 
 }
+
+fun createGetMoviesUseCase() =
+    GetMoviesUseCase(
+        MoviesRepositoryImpl(
+            moviesRemoteDataSource = MoviesRemoteDataSourceAPI(),
+            moviesLocalDataSource = MoviesLocalDatabase()
+        )
+    )
+
 

@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.notflix.notflix.data.Movie
+import com.notflix.notflix.data.model.Movie
 
 /**
  * Created by Nicolas Dubiansky on 28/11/2024.
