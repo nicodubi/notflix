@@ -13,7 +13,7 @@ class MoviesRepositoryImpl @Inject constructor(
     private val moviesLocalDataSource: MoviesLocalDataSource
 ) : MoviesRepository {
     override suspend fun getMovies(): List<Movie> {
-       val hasInternet = false
+       val hasInternet = true
         return if (hasInternet) {
             moviesRemoteDataSource.getMoviesNetwork()
         } else {

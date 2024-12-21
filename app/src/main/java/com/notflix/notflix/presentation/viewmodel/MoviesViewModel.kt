@@ -2,7 +2,6 @@ package com.notflix.notflix.presentation.viewmodel
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.notflix.notflix.data.model.Movie
 import com.notflix.notflix.domain.usecase.GetMoviesUseCase
@@ -23,12 +22,19 @@ class MoviesViewModel @Inject constructor(private val getMoviesUseCase: GetMovie
         get() = _movies
 
     init {
+        getMovies()
+    }
+
+    fun getMovies() {
         viewModelScope.launch {
-            val movies = getMoviesUseCase.getFakeMovies()
+            val movies = getMoviesUseCase.getMovies()
             _movies.clear()
             _movies.addAll(movies)
         }
+
     }
 
-
+    fun refreshMovies() {
+        getMovies()
+    }
 }

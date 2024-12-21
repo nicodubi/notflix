@@ -1,19 +1,20 @@
 package com.notflix.notflix.presentation.screens.movieshome
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.notflix.notflix.data.repository.MoviesRepositoryImpl
-import com.notflix.notflix.data.source.local.MoviesLocalDatabase
-import com.notflix.notflix.data.source.network.MoviesRemoteDataSourceAPI
-import com.notflix.notflix.domain.usecase.GetMoviesUseCase
 import com.notflix.notflix.presentation.viewmodel.MoviesViewModel
 
 /**
@@ -25,7 +26,19 @@ fun MoviesHomeScreen(
     modifier: Modifier = Modifier,
     moviesViewModel: MoviesViewModel = hiltViewModel()
 ) {
-    MoviesList(movies = moviesViewModel.movies)
+    Box(modifier = Modifier.fillMaxSize()) {
+        MoviesList(movies = moviesViewModel.movies)
+
+        FloatingActionButton(
+            modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp),
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            onClick = { moviesViewModel.getMovies() }) {
+            Icon(
+                imageVector = Icons.Filled.Refresh,
+                contentDescription = "Refresh"
+            )
+        }
+    }
 
 }
 

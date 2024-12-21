@@ -2,4 +2,7 @@
 <resources>
     <dimen name="padding_cards_small">4dp</dimen>
     <dimen name="padding_card_space_elements">2dp</dimen>
+    <dimen name="thickness_divider">2dp</dimen>
+    <dimen name="divider_padding_between_items">8dp</dimen>
+
 </resources>

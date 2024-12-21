@@ -12,10 +12,10 @@ import com.notflix.notflix.data.model.Movie
  */
 
 @Composable
-fun MoviesList(modifier: Modifier = Modifier, movies : List<Movie>) {
+fun MoviesList(modifier: Modifier = Modifier, movies: List<Movie>) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
-        items(items = movies){movie ->
-            MovieListItem(title = movie.title, year = movie.year)
+        items(items = movies) { movie ->
+            MovieListItem(movie = movie)
         }
     }
 }

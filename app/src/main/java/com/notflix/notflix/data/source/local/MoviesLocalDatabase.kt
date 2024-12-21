@@ -11,7 +11,15 @@ import kotlinx.coroutines.withContext
 class MoviesLocalDatabase : MoviesLocalDataSource {
     override suspend fun getMoviesLocal(): List<Movie> = withContext(Dispatchers.IO) {
         delay(2000L)
-        List(40) { Movie(title = "Movie $it", year = 2000 + it) }
+        List(40) {
+            Movie(
+                title = "Movie $it",
+                id = it,
+                overview = "Movie Description $it",
+                vote_average = 7.2,
+                release_date = "07/04/20$it"
+            )
+        }
     }
 
 }
