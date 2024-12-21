@@ -4,9 +4,9 @@ import com.notflix.notflix.data.repository.MoviesRepository
 import com.notflix.notflix.data.repository.MoviesRepositoryImpl
 import com.notflix.notflix.data.source.local.MoviesLocalDataSource
 import com.notflix.notflix.data.source.local.MoviesLocalDatabase
+import com.notflix.notflix.data.source.network.MoviesNetworkServices
 import com.notflix.notflix.data.source.network.MoviesRemoteDataSource
-import com.notflix.notflix.data.source.network.MoviesRemoteDataSourceAPI
-import com.notflix.notflix.domain.usecase.GetMoviesUseCase
+import com.notflix.notflix.data.source.network.MoviesRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -45,5 +45,6 @@ object DataSourceModule {
     fun provideMoviesLocalDataSource(): MoviesLocalDataSource = MoviesLocalDatabase()
 
     @Provides
-    fun provideMoviesRemoteDataSource(): MoviesRemoteDataSource = MoviesRemoteDataSourceAPI()
+    fun provideMoviesRemoteDataSource(moviesNetworkServices: MoviesNetworkServices): MoviesRemoteDataSource =
+        MoviesRemoteDataSourceImpl(moviesNetworkServices)
 }
