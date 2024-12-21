@@ -23,13 +23,27 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "API_KEY",
+                "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NTI2ODdiOTRkZTYxNmIwZmZjYTU1M2JlNjVkNDQyYSIsIm5iZiI6MTczMjcxNTcyNi44ODcsInN1YiI6IjY3NDcyNGNlZDczYTQ4NmNiZDMzNDJhZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y8UVeoX9qbgR4ZipkJ2kVJoFWxobOTpNVdKgL9-40mw\""
+            )
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField(
+                "String",
+                "API_KEY",
+                "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NTI2ODdiOTRkZTYxNmIwZmZjYTU1M2JlNjVkNDQyYSIsIm5iZiI6MTczMjcxNTcyNi44ODcsInN1YiI6IjY3NDcyNGNlZDczYTQ4NmNiZDMzNDJhZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y8UVeoX9qbgR4ZipkJ2kVJoFWxobOTpNVdKgL9-40mw\""
+            )
+
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -40,6 +54,8 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -76,6 +92,13 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
 
     kapt(libs.hilt.android.compiler)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    // OkHttp
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }
 
 // Hilt setup: Allow references to generated code
