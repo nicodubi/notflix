@@ -1,6 +1,10 @@
 package com.notflix.notflix.presentation.viewmodel
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.notflix.notflix.data.model.Movie
@@ -16,8 +20,8 @@ import javax.inject.Inject
 class MoviesViewModel @Inject constructor(private val getMoviesUseCase: GetMoviesUseCase) :
     ViewModel() {
 
-    private val _movies: MutableList<Movie> = mutableStateListOf()
 
+    private val _movies: MutableList<Movie> = mutableStateListOf()
     val movies: List<Movie>
         get() = _movies
 

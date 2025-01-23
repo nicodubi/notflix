@@ -13,6 +13,7 @@ class MoviesRemoteDataSourceImpl @Inject constructor(
     private val BASE_IMAGE_TMDB_URL = "https://image.tmdb.org/t/p/w500/"
 
     override suspend fun getMoviesNetwork(): List<Movie> {
+
         val randomMoviesNames = listOf("Harry", "Spider", "Ring", "Batman", "IronMan")
         val moviesResponse = moviesNetworkServices.getMovies(randomMoviesNames.random())
         val movies = buildURLPosterImages(moviesResponse.results)
