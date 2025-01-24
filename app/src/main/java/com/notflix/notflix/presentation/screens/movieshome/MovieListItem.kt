@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.text.TextUtils.TruncateAt
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,7 +52,6 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.notflix.notflix.R
 import com.notflix.notflix.data.model.Movie
-import com.notflix.notflix.ui.theme.BlueNotflix
 import kotlin.math.roundToInt
 
 /**
@@ -60,9 +60,9 @@ import kotlin.math.roundToInt
 
 
 @Composable
-fun MovieRoundedContainer(content: @Composable () -> Unit) {
+fun MovieRoundedContainer(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Surface(
-        modifier = Modifier.padding(16.dp),
+        modifier = modifier.padding(16.dp),
         shadowElevation = 8.dp,
         shape = RoundedCornerShape(size = 16.dp),
         color = MaterialTheme.colorScheme.onPrimary
@@ -72,9 +72,9 @@ fun MovieRoundedContainer(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun MovieRoundedCardContainer(content: @Composable () -> Unit) {
-    Card (
-        modifier = Modifier.padding(16.dp),
+fun MovieRoundedCardContainer(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    Card(
+        modifier = modifier.padding(16.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.onPrimary)
     ) {
         content()
@@ -82,8 +82,8 @@ fun MovieRoundedCardContainer(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun MovieListItem(modifier: Modifier = Modifier, movie: Movie) {
-    MovieRoundedContainer {
+fun MovieListItem(modifier: Modifier = Modifier, movie: Movie, onMovieClicked: () -> Unit) {
+    MovieRoundedContainer(modifier = Modifier.clickable {onMovieClicked()}) {
         Column(modifier = modifier.height(dimensionResource(R.dimen.movie_list_item_height))) {
             Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
                 Column(
@@ -165,7 +165,8 @@ fun MovieListItemPreview() {
     )
 
     MovieListItem(
-        movie = movie
+        movie = movie,
+        onMovieClicked = {}
     )
 
 }

@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.notflix.notflix.data.model.Movie
 
 import com.notflix.notflix.presentation.viewmodel.MoviesViewModel
 
@@ -24,10 +25,13 @@ import com.notflix.notflix.presentation.viewmodel.MoviesViewModel
 @Composable
 fun MoviesHomeScreen(
     modifier: Modifier = Modifier,
-    moviesViewModel: MoviesViewModel = hiltViewModel()
+    moviesViewModel: MoviesViewModel = hiltViewModel(),
+    onNavigateToMovieDetail : (Movie) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
-        MoviesList(movies = moviesViewModel.movies)
+        MoviesList(movies = moviesViewModel.movies, onMovieClicked = {
+            onNavigateToMovieDetail(it)
+        })
 
         FloatingActionButton(
             modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp),
