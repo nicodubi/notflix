@@ -25,6 +25,7 @@ import com.notflix.notflix.presentation.screens.movieshome.MoviesHomeScreen
 import com.notflix.notflix.ui.theme.NotflixTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -57,7 +58,7 @@ fun NotflixAppNavigation() {
 
         composable<MainActivity.MovieDetailScreenRoute> {backStackEntry ->
             val movieDetailScreen : MainActivity.MovieDetailScreenRoute = backStackEntry.toRoute()
-            MovieDetailScreen(movieDetailScreen.movieTitle)
+            MovieDetailScreen(movieTitle = movieDetailScreen.movieTitle)
         }
 
     }

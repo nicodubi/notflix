@@ -1,17 +1,24 @@
 package com.notflix.notflix.presentation.viewmodel
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.notflix.notflix.data.model.Movie
 import com.notflix.notflix.domain.usecase.GetMoviesUseCase
+import com.notflix.notflix.domain.usecase.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
+
+typealias ResultStateMovies = ResultState<List<Movie>>
 
 /**
  * Created by Nicolas Dubiansky on 27/11/2024.
@@ -21,24 +28,31 @@ class MoviesViewModel @Inject constructor(private val getMoviesUseCase: GetMovie
     ViewModel() {
 
 
-    private val _movies: MutableList<Movie> = mutableStateListOf()
-    val movies: List<Movie>
+    private val _movies = mutableStateOf<ResultStateMovies>(ResultState.Loading)
+    val movies: State<ResultStateMovies>
         get() = _movies
 
     init {
         getMovies()
     }
 
-    fun getMovies() {
-        viewModelScope.launch {
-            val movies = getMoviesUseCase.getMovies()
-            _movies.clear()
-            _movies.addAll(movies)
-        }
+    private fun getMovies() {
+         viewModelScope.launch {
+            try {
+                _movies.value = ResultState.Loading
+                val movies = getMoviesUseCase.getMovies()
+                _movies.value = ResultState.Success(movies)
+            } catch (e: Exception) {
+                Timber.d(e)
+                _movies.value = ResultState.Error(e)
 
+            }
+
+        }
     }
 
     fun refreshMovies() {
         getMovies()
     }
+
 }
