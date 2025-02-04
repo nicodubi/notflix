@@ -9,12 +9,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.notflix.notflix.presentation.viewmodel.MoviesViewModel
 
 /**
  * Created by Nicolas Dubiansky on 24/01/2025.
  */
 @Composable
-fun MovieDetailScreen(movieTitle: String) {
+fun MovieDetailScreen(
+    modifier: Modifier = Modifier,
+    movieTitle: String,
+    moviesViewModel: MoviesViewModel = hiltViewModel()
+) {
     Box(Modifier.fillMaxSize()) {
         Button(modifier = Modifier
             .padding(16.dp)
