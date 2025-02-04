@@ -120,6 +120,8 @@ dependencies {
 // JSON serialization library, works with the Kotlin serialization plugin
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.timber)
+
 }
 
 // Hilt setup: Allow references to generated code
