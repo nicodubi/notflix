@@ -83,7 +83,7 @@ fun MovieRoundedCardContainer(modifier: Modifier = Modifier, content: @Composabl
 
 @Composable
 fun MovieListItem(modifier: Modifier = Modifier, movie: Movie, onMovieClicked: () -> Unit) {
-    MovieRoundedContainer(modifier = Modifier.clickable {onMovieClicked()}) {
+    MovieRoundedContainer(modifier = Modifier.clickable(onClick = onMovieClicked)) {
         Column(modifier = modifier.height(dimensionResource(R.dimen.movie_list_item_height))) {
             Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
                 Column(
@@ -94,7 +94,7 @@ fun MovieListItem(modifier: Modifier = Modifier, movie: Movie, onMovieClicked: (
                 ) {
                     Text(
                         text = movie.title,
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(bottom = dimensionResource(R.dimen.padding_card_space_elements))

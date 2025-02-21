@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Notflix</string>
+    <string name="refresh">Refreshing...</string>
 </resources>
