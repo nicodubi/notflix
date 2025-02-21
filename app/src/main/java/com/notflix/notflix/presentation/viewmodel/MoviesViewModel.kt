@@ -18,18 +18,23 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-typealias ResultStateMovies = ResultState<List<Movie>>
-
 /**
  * Created by Nicolas Dubiansky on 27/11/2024.
  */
+
+data class HomeMoviesUIState(
+    val isLoading: Boolean = false,
+    val movies: List<Movie> = emptyList(),
+    val error: Exception? = null
+)
+
 @HiltViewModel
 class MoviesViewModel @Inject constructor(private val getMoviesUseCase: GetMoviesUseCase) :
     ViewModel() {
 
 
-    private val _movies = mutableStateOf<ResultStateMovies>(ResultState.Loading)
-    val movies: State<ResultStateMovies>
+    private val _movies = mutableStateOf(HomeMoviesUIState())
+    val movies: State<HomeMoviesUIState>
         get() = _movies
 
     init {
@@ -37,14 +42,14 @@ class MoviesViewModel @Inject constructor(private val getMoviesUseCase: GetMovie
     }
 
     private fun getMovies() {
-         viewModelScope.launch {
+        viewModelScope.launch {
             try {
-                _movies.value = ResultState.Loading
+                _movies.value = _movies.value.copy(isLoading = true, error = null)
                 val movies = getMoviesUseCase.getMovies()
-                _movies.value = ResultState.Success(movies)
+                _movies.value = HomeMoviesUIState(movies = movies)
             } catch (e: Exception) {
                 Timber.d(e)
-                _movies.value = ResultState.Error(e)
+                _movies.value = _movies.value.copy(error = e, isLoading = false)
 
             }
 
