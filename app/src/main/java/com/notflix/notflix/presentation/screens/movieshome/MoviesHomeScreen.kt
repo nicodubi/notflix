@@ -50,7 +50,7 @@ import kotlinx.coroutines.delay
 fun MoviesHomeScreen(
     moviesViewModel: MoviesViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
-    onNavigateToMovieDetail: (Movie) -> Unit
+    onNavigateToMovieDetail: (Movie) -> Unit,
 ) {
     val homeMoviesUIState by moviesViewModel.movies
     MoviesHomeScreen(
@@ -74,7 +74,7 @@ fun MoviesHomeScreen(
     uiState: HomeMoviesUIState,
     snackbarHostState: SnackbarHostState,
     onNavigateToMovieDetail: (Movie) -> Unit,
-    onRefreshMovies: () -> Unit
+    onRefreshMovies: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -96,15 +96,12 @@ fun MoviesHomeScreen(
                     snackbarHostState.showSnackbar(message = it.message ?: "Unknown Error")
                 }
             }
-
-            if (uiState.isLoading) LoadingContent()
             val refreshMessage = stringResource(R.string.refresh)
-            FloatingActionButton(
-                modifier = Modifier
+            FloatingButtonRefresh(
+                Modifier
                     .align(Alignment.BottomEnd)
                     .padding(16.dp),
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                onClick = {
+                onRefreshClick = {
                     onRefreshMovies()
                     showSnackbarRefreshing(
                         coroutineScope = coroutineScope,
@@ -112,20 +109,32 @@ fun MoviesHomeScreen(
                         message = refreshMessage
                     )
                 }
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Refresh,
-                    contentDescription = "Refresh"
-                )
-            }
+            )
+            if (uiState.isLoading) LoadingContent()
+
         }
     }
 }
 
-fun showSnackbarRefreshing(
+@Composable
+fun FloatingButtonRefresh(modifier: Modifier, onRefreshClick: () -> Unit) {
+    FloatingActionButton(
+        modifier = modifier,
+        contentColor = MaterialTheme.colorScheme.onPrimary,
+        onClick = { onRefreshClick() }
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Refresh,
+            contentDescription = "Refresh"
+        )
+    }
+}
+
+
+private fun showSnackbarRefreshing(
     coroutineScope: CoroutineScope,
     snackbarHostState: SnackbarHostState,
-    message : String
+    message: String,
 ) {
     coroutineScope.launch {
         snackbarHostState.showSnackbar(message)

@@ -5,5 +5,7 @@
     <dimen name="thickness_divider">2dp</dimen>
     <dimen name="divider_padding_between_items">8dp</dimen>
     <dimen name="movie_list_item_height">180dp</dimen>
+    <dimen name="movie_detail_padding_top_between_data">10dp</dimen>
+    <dimen name="movie_details_section_padding_horizontal">20dp</dimen>
 
 </resources>

@@ -7,4 +7,6 @@ import com.notflix.notflix.data.model.Movie
  */
 interface MoviesRemoteDataSource {
     suspend fun getMoviesNetwork(): List<Movie>
+
+    suspend fun getMovie(id : Int) : Movie
 }

@@ -25,7 +25,7 @@ import javax.inject.Inject
 data class HomeMoviesUIState(
     val isLoading: Boolean = false,
     val movies: List<Movie> = emptyList(),
-    val error: Exception? = null
+    val error: Exception? = null,
 )
 
 @HiltViewModel
@@ -49,7 +49,7 @@ class MoviesViewModel @Inject constructor(private val getMoviesUseCase: GetMovie
                 _movies.value = HomeMoviesUIState(movies = movies)
             } catch (e: Exception) {
                 Timber.d(e)
-                _movies.value = _movies.value.copy(error = e, isLoading = false)
+                _movies.value = _movies.value.copy(isLoading = false, error = e)
 
             }
 
