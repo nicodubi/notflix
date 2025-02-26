@@ -1,6 +1,7 @@
 package com.notflix.notflix.data.source.network
 
 import com.notflix.notflix.data.model.Movie
+import com.notflix.notflix.data.model.getFakeMovie
 import javax.inject.Inject
 
 /**
@@ -18,6 +19,12 @@ class MoviesRemoteDataSourceImpl @Inject constructor(
         val moviesResponse = moviesNetworkServices.getMovies(randomMoviesNames.random())
         val movies = buildURLPosterImages(moviesResponse.results)
         return movies
+    }
+
+    override suspend fun getMovie(id: Int): Movie {
+        //TODO change for Network API Request
+        val fakeMovieNetwork = getFakeMovie()
+        return fakeMovieNetwork
     }
 
     private fun buildURLPosterImages(movies: List<Movie>) =

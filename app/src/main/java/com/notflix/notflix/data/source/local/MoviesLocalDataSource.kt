@@ -10,4 +10,8 @@ import javax.inject.Inject
 interface MoviesLocalDataSource {
     suspend fun getMoviesLocal(): List<Movie>
 
+    suspend fun saveMovies(movies: List<Movie>)
+
+    suspend fun getMovie(id : Int) : Movie?
+
 }

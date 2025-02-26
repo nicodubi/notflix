@@ -13,11 +13,22 @@ class MoviesRepositoryImpl @Inject constructor(
     private val moviesLocalDataSource: MoviesLocalDataSource
 ) : MoviesRepository {
     override suspend fun getMovies(): List<Movie> {
-       val hasInternet = true
+        val hasInternet = true //TODO change validation
         return if (hasInternet) {
-            moviesRemoteDataSource.getMoviesNetwork()
+            val movies = moviesRemoteDataSource.getMoviesNetwork()
+            moviesLocalDataSource.saveMovies(movies)
+            movies
         } else {
             moviesLocalDataSource.getMoviesLocal()
         }
+    }
+
+    override suspend fun getMovie(id: Int): Movie {
+        val movie : Movie? = moviesLocalDataSource.getMovie(id)
+        return movie ?: moviesRemoteDataSource.getMovie(id)
+    }
+
+    override suspend fun saveMovies(movies: List<Movie>) {
+        moviesLocalDataSource.saveMovies(movies)
     }
 }

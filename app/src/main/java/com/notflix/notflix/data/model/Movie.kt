@@ -11,3 +11,12 @@ data class Movie(
     val title: String,
     val vote_average: Double,
 )
+
+fun getFakeMovie(id: Int = 0) =
+    Movie(
+        title = "Movie $id",
+        id = id,
+        overview = "Movie Description $id",
+        vote_average = 7.2,
+        release_date = "07/04/20$id"
+    )

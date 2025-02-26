@@ -7,5 +7,7 @@ import com.notflix.notflix.data.model.Movie
  */
 interface MoviesRepository {
 
-    suspend fun getMovies() : List<Movie>
+    suspend fun getMovies(): List<Movie>
+    suspend fun getMovie(id: Int): Movie
+    suspend fun saveMovies(movies: List<Movie>)
 }
