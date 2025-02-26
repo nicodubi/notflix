@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
     object MoviesHomeScreenRoute
 
     @kotlinx.serialization.Serializable
-    data class MovieDetailScreenRoute(val movieTitle: String)
+    data class MovieDetailScreenRoute(val movieId: Int)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,13 +50,13 @@ fun NotflixAppNavGraph() {
     NavHost(navController = navController, startDestination = MainActivity.MoviesHomeScreenRoute) {
         composable<MainActivity.MoviesHomeScreenRoute> {
             MoviesHomeScreen(onNavigateToMovieDetail = {
-                navController.navigate(route = MainActivity.MovieDetailScreenRoute(movieTitle = it.title))
+                navController.navigate(route = MainActivity.MovieDetailScreenRoute(movieId = it.id))
             })
         }
 
         composable<MainActivity.MovieDetailScreenRoute> {backStackEntry ->
             val movieDetailScreen : MainActivity.MovieDetailScreenRoute = backStackEntry.toRoute()
-            MovieDetailScreen(movieTitle = movieDetailScreen.movieTitle)
+            MovieDetailScreen(movieId = movieDetailScreen.movieId)
         }
 
     }
